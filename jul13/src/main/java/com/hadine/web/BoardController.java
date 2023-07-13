@@ -8,7 +8,9 @@ import java.util.Map;
 
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,43 +18,35 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BoardController {
+	
+	//서비스와 연결하기, 타입 맞으면 자동으로 들어온다. 
+	@Autowired
+	private BoardService boardService;
+	
 	// 사용자가 /board 라고 호출하면 동작할 메소드를 만들겠습니다.
-	
-	
 	@GetMapping("/board")
 	public ModelAndView board() {// 메소드 만들기
 		ModelAndView mv = new ModelAndView("board"); // jsp 파일명
-		mv.addObject("name", "홍길동"); // 값 붙이기
 		
-		List<BoardDTO> list = new ArrayList<BoardDTO>();
-		for (int i = 1; i < 11; i++) {
-			BoardDTO e = new BoardDTO(i, "반가워요. 무지예요", "홍길동", "2023-07-"+i, i*10);
-			/*e.setBno(i);
-			e.setBtitle("반가워요. 무지예요");
-			e.setBwrite("무지무지한 무지");
-			e.setBdate("2023-07-"+i);
-			e.setBlike(i*10);*/
-			list.add(e);
-			//생성자에 한 줄로 입력하면 
-		}
+		//서비스에게 일 시킵니다.
+		List<BoardDTO> list = boardService.boardList();
 		
 		mv.addObject("list", list);
-		
-		List<Map<String, Object>> list2 = new ArrayList<Map<String,Object>>();
-		
-		for (int i = 1; i < 10; i++) {
-			Map<String, Object> e = new HashMap<String, Object>();
-			e.put("bno", i);
-			e.put("btitle", "반가워요. 무지예요");
-			e.put("bwrite", "무지무지한 무지");
-			e.put("bdate", "2023-07-" + i);
-			e.put("bdate", "2023-07-13");
-			e.put("blike", i*10);
-			list2.add(e);
-		}
-		
-		mv.addObject("list2", list2);
-		
 		return mv;
 	}
+	
+	@GetMapping("/board2")
+	public String board2(Model model) {
+		model.addAttribute("name", "무지무지한 무지");
+		
+		List<BoardDTO> list2 = new ArrayList<BoardDTO>();
+		for (int i = 1; i < 11; i++) {
+			BoardDTO dto = new BoardDTO(i, "제목입니다.", "무지무지한 무지", "2023-07-13", i);
+			list2.add(dto);
+		}
+		model.addAttribute("list2", list2);
+		
+		return "board2";
+	}
+	
 }

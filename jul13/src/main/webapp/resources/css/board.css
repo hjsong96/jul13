@@ -14,7 +14,7 @@ th{
 td{
 	text-align: center; /* 중앙 정렬 */
 	border-bottom: 1px solid gray; /* 아래줄 설정 */
-	background-color: #E0E0E0;
+	/* background-color: #E0E0E0; */
 }
 
 #td1{
