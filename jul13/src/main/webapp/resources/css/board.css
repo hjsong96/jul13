@@ -1,0 +1,35 @@
+@charset "UTF-8";
+table{
+	margin: 0 auto;
+	width: 1000px;
+	height: 500px;
+	border-collapse: collapse; /* 셀과 셀 사이 공백 없애줌 */
+}
+th{
+	height: 30px;
+	background-color: #039BE5;
+	color: white;
+}
+
+td{
+	text-align: center; /* 중앙 정렬 */
+	border-bottom: 1px solid gray; /* 아래줄 설정 */
+	background-color: #E0E0E0;
+}
+
+#td1{
+	width: 10%;
+}
+
+#td2{
+	width: 20%;
+}
+
+.title{
+	text-align: left;
+}
+
+tr:hover {
+	background-color: #90CAF9;
+	font-weight: bolder;
+}
